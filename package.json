@@ -1,0 +1,80 @@
+{
+  "name": "node-graphql-frameworkless",
+  "version": "1.0.0",
+  "license": "ISC",
+  "description": "Simplest drop-in Node.js graphql project template",
+  "main": "app/server.js",
+  "scripts": {
+    "start": "NODE_ENV='production' node app/server.js",
+    "dev": "nodemon --watch app/node_modules --watch app/server.js",
+    "lint": "eslint ./app/* app"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-graphql": "^0.12.0",
+    "graphql": "^15.4.0",
+    "graphql-tools": "^7.0.2"
+  },
+  "devDependencies": {
+    "@graphql-eslint/eslint-plugin": "^0.7.1",
+    "eslint": "^6.1.0",
+    "eslint-plugin-jsdoc": "^15.7.2",
+    "jsonlint": "^1.6.3",
+    "nodemon": "^2.0.6"
+  },
+  "nodemonConfig": {
+    "ignoreRoot": [
+      ".git",
+      "./node_modules"
+    ]
+  },
+  "eslintConfig": {
+    "env": {
+      "commonjs": true,
+      "es6": true,
+      "node": true
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:jsdoc/recommended"
+    ],
+    "globals": {
+      "Atomics": "readonly",
+      "SharedArrayBuffer": "readonly"
+    },
+    "parserOptions": {
+      "ecmaVersion": 2018,
+      "sourceType": "module"
+    },
+    "plugins": [
+      "jsdoc"
+    ],
+    "rules": {
+      "no-console": 0,
+      "indent": [
+        "error",
+        2
+      ],
+      "linebreak-style": [
+        "error",
+        "unix"
+      ],
+      "jsdoc/require-jsdoc": 0,
+      "jsdoc/require-param-type": 0
+    },
+    "overrides": [
+      {
+        "files": [
+          "*.graphql",
+          "*.gql"
+        ],
+        "parser": "@graphql-eslint/eslint-plugin",
+        "plugins": [
+          "@graphql-eslint"
+        ],
+        "parserOptions": {}
+      }
+    ]
+  }
+}

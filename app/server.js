@@ -38,6 +38,15 @@ const corsOptions = {
   credentials: true,
 }
 app.use( cors(corsOptions),)
+
+app.get('/', (req, res) => res.send(`
+  <h1>GraphQL faked API</h1>
+  <div>&nbsp;</div>
+  <p>
+    Try <a href="/graphql">/graphql</a>
+  </p>
+`));
+
 app.use('/graphql', graphqlHTTP( async (req) => {
   const context = { req }
   return {

@@ -4,6 +4,7 @@
   "license": "ISC",
   "description": "Simplest drop-in Node.js graphql project template",
   "main": "app/server.js",
+  "type": "module",
   "scripts": {
     "start": "NODE_ENV='production' node app/server.js",
     "dev": "nodemon --watch app/node_modules --watch app/server.js",

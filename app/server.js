@@ -1,33 +1,20 @@
 import express from 'express'
 import cors from 'cors'
 import { graphqlHTTP } from 'express-graphql'
-import { makeExecutableSchema }  from 'graphql-tools'
+import { mergeTypeDefs } from '@graphql-tools/merge'
+import { makeExecutableSchema } from '@graphql-tools/schema'
 import auth from 'auth'
 
-const host = '0.0.0.0'
-const port = '3080'
+const host = process.env.HOST || '0.0.0.0'
+const port = process.env.PORT || '3080'
 
-const typeDefs = `
-  ${(auth.schema.Type || '')}
-  type Query {
-    ${auth.schema.Query}
-  }
-  type Mutation {
-    placeHolder: Int
-    ${(auth.schema.Mutation || '')}
-  }
-`
+const typeDefs = mergeTypeDefs([
+  auth.typeDefs,
+]);
 
-var resolvers = {
-  Query: {
-    ...auth.resolvers.Query,
-  },
-  Mutation: {
-    placeHolder: () => 0,
-    ...auth.resolvers.Mutation,
-  },
-  ...auth.resolvers.Custom
-}
+const resolvers = [
+  auth.resolvers,
+];
 
 const schema = makeExecutableSchema({ typeDefs, resolvers })
 

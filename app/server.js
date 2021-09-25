@@ -2,31 +2,31 @@ import express from 'express'
 import cors from 'cors'
 import { graphqlHTTP } from 'express-graphql'
 import { makeExecutableSchema }  from 'graphql-tools'
-import hello from 'hello'
+import auth from 'auth'
 
 const host = '0.0.0.0'
 const port = '3080'
 
 const typeDefs = `
-  ${(hello.schema.Type || '')}
+  ${(auth.schema.Type || '')}
   type Query {
-    ${hello.schema.Query}
+    ${auth.schema.Query}
   }
   type Mutation {
     placeHolder: Int
-    ${(hello.schema.Mutation || '')}
+    ${(auth.schema.Mutation || '')}
   }
 `
 
 var resolvers = {
   Query: {
-    ...hello.resolvers.Query,
+    ...auth.resolvers.Query,
   },
   Mutation: {
     placeHolder: () => 0,
-    ...hello.resolvers.Mutation,
+    ...auth.resolvers.Mutation,
   },
-  ...hello.resolvers.Custom
+  ...auth.resolvers.Custom
 }
 
 const schema = makeExecutableSchema({ typeDefs, resolvers })

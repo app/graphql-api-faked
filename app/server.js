@@ -1,5 +1,6 @@
 import express from 'express'
 import cors from 'cors'
+import ejwt from 'express-jwt'
 import { graphqlHTTP } from 'express-graphql'
 import { mergeTypeDefs } from '@graphql-tools/merge'
 import { makeExecutableSchema } from '@graphql-tools/schema'
@@ -9,6 +10,7 @@ const host = process.env.HOST || '0.0.0.0'
 const port = process.env.PORT || '3080'
 
 const typeDefs = mergeTypeDefs([
+  'scalar JSON',
   auth.typeDefs,
 ]);
 
@@ -33,6 +35,31 @@ app.get('/', (req, res) => res.send(`
     Try <a href="/graphql">/graphql</a>
   </p>
 `));
+
+app.use(
+  ejwt(
+    {
+      secret:auth.secret,
+      algorithms: ['HS256']
+    }
+  )
+    .unless({path: ['/graphql']})
+)
+
+app.use(function (err, req, res, next) {
+  if (err.name === 'UnauthorizedError') {
+    res.status(401).send('Invalid  or missing token');
+  }
+  next()
+});
+
+app.get('/user', (req, res) => res.send(`
+  <h1>User's account</h1>
+  <div>&nbsp;</div>
+  <p>
+    ${req.user}
+  </p>
+`))
 
 app.use('/graphql', graphqlHTTP( async (req) => {
   const context = { req }

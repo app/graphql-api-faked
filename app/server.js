@@ -62,7 +62,9 @@ app.get('/user', (req, res) => res.send(`
 `))
 
 app.use('/graphql', graphqlHTTP( async (req) => {
-  const context = { req }
+  var token = req.header('Authorization')
+  token = token ? token.replace(/^.*\s+/, "") : token
+  const context = { req, token }
   return {
     schema: schema,
     graphiql: true,

@@ -1,0 +1,1 @@
+mutation{logout{email token error}}

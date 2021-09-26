@@ -1,0 +1,1 @@
+mutation { login(email: "admin@mail.ru" password: "123") { email token error } }

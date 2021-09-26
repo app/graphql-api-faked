@@ -804,6 +804,11 @@ combined-stream@^1.0.8:
   dependencies:
     delayed-stream "~1.0.0"
 
+commander@^2.20.3:
+  version "2.20.3"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
+  integrity sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
+
 comment-parser@^0.6.2:
   version "0.6.2"
   resolved "https://registry.yarnpkg.com/comment-parser/-/comment-parser-0.6.2.tgz#b71e8fcacad954bea616779391838150d0096dcb"
@@ -901,6 +906,11 @@ crypto-random-string@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/crypto-random-string/-/crypto-random-string-2.0.0.tgz#ef2a7a966ec11083388369baa02ebead229b30d5"
   integrity sha512-v1plID3y9r/lPhviJ1wrXpLeyUIGAZ2SHNYTEapm7/8A9nLPoyvVp3RK/EPFqn5kEznyWgYZNsRtYYIWbuG8KA==
+
+cssfilter@0.0.10:
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/cssfilter/-/cssfilter-0.0.10.tgz#c6d2672632a2e5c83e013e6864a42ce8defd20ae"
+  integrity sha1-xtJnJjKi5cg+AT5oZKQs6N79IK4=
 
 dataloader@2.0.0:
   version "2.0.0"
@@ -1508,6 +1518,20 @@ graphql-depth-limit@1.1.0:
   integrity sha512-+3B2BaG8qQ8E18kzk9yiSdAa75i/hnnOwgSeAxVJctGQPvmeiLtqKOYF6HETCyRjiF7Xfsyal0HbLlxCQkgkrw==
   dependencies:
     arrify "^1.0.1"
+
+graphql-playground-html@^1.6.29:
+  version "1.6.29"
+  resolved "https://registry.yarnpkg.com/graphql-playground-html/-/graphql-playground-html-1.6.29.tgz#5b0c60a0161cc0f3116085f64c5a16cb3b2d9a16"
+  integrity sha512-fbF/zZKuw2sdfKp8gjTORJ/I9xBsqeEYRseWxBzuR15NHMptRTT9414IyRCs3ognZzUDr5MDJgx97SlLZCtQyA==
+  dependencies:
+    xss "^1.0.6"
+
+graphql-playground-middleware-express@^1.7.22:
+  version "1.7.22"
+  resolved "https://registry.yarnpkg.com/graphql-playground-middleware-express/-/graphql-playground-middleware-express-1.7.22.tgz#e4bbe4faaa56b48e95769c8b87b65e53355d91a4"
+  integrity sha512-PJLiCxLmN6Dp+dHGyHU92m9y3hB/RAkcUBWcqYl2fiP+EbpDDgNfElrsVzW60MhJe+LTV1PFqiInH2d3KNvlCQ==
+  dependencies:
+    graphql-playground-html "^1.6.29"
 
 graphql-upload@^11.0.0:
   version "11.0.0"
@@ -3071,6 +3095,14 @@ xdg-basedir@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/xdg-basedir/-/xdg-basedir-4.0.0.tgz#4bc8d9984403696225ef83a1573cbbcb4e79db13"
   integrity sha512-PSNhEJDejZYV7h50BohL09Er9VaIefr2LMAf3OEmpCkjOi34eYyQYAXUTjEQtZJTKcF0E2UKTh+osDLsgNim9Q==
+
+xss@^1.0.6:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/xss/-/xss-1.0.9.tgz#3ffd565571ff60d2e40db7f3b80b4677bec770d2"
+  integrity sha512-2t7FahYnGJys6DpHLhajusId7R0Pm2yTmuL0GV9+mV0ZlaLSnb2toBmppATfg5sWIhZQGlsTLoecSzya+l4EAQ==
+  dependencies:
+    commander "^2.20.3"
+    cssfilter "0.0.10"
 
 yallist@^4.0.0:
   version "4.0.0"

@@ -4,6 +4,8 @@ import ejwt from 'express-jwt'
 import { graphqlHTTP } from 'express-graphql'
 import { mergeTypeDefs } from '@graphql-tools/merge'
 import { makeExecutableSchema } from '@graphql-tools/schema'
+import expressPlayground from 'graphql-playground-middleware-express'
+  // require('../../dist/index').default
 import auth from 'auth'
 
 const host = process.env.HOST || '0.0.0.0'
@@ -29,11 +31,17 @@ const corsOptions = {
 app.use( cors(corsOptions),)
 
 app.get('/', (req, res) => res.send(`
-  <h1>GraphQL faked API</h1>
-  <div>&nbsp;</div>
-  <p>
-    Try <a href="/graphql">/graphql</a>
-  </p>
+  <body style="color:rgb(42, 126, 211);background-color:#172a3a">
+    <h1>GraphQL faked API</h1>
+    <div>&nbsp;</div>
+    <p>
+      Try <a style="color:rgb(42, 126, 211)" href="/playground">${req.protocol}://${req.host}/playground</a> GUI applicaton!
+    </p>
+    <p>
+      Use ${req.protocol}://${req.host}/graphql as graphql endpoint in your client API.
+    </p>
+  </body>
+
 `));
 
 app.use(
@@ -43,7 +51,7 @@ app.use(
       algorithms: ['HS256']
     }
   )
-    .unless({path: ['/graphql']})
+    .unless({path: ['/graphql','/playground']})
 )
 
 app.use(function (err, req, res, next) {
@@ -61,6 +69,16 @@ app.get('/user', (req, res) => res.send(`
   </p>
 `))
 
+const endpoint = process.env.NODE_ENV === 'development' ?
+  `http://127.0.0.1:${port}/graphql` : `https://graphql-api-faked.vercel.app/graphql`
+app.get(
+  '/playground',
+  expressPlayground.default({
+    // endpoint: `http://127.0.0.1:${port}/graphql`,
+    endpoint,
+  }),
+)
+
 app.use('/graphql', graphqlHTTP( async (req) => {
   var token = req.header('Authorization')
   token = token ? token.replace(/^.*\s+/, "") : token
@@ -71,4 +89,4 @@ app.use('/graphql', graphqlHTTP( async (req) => {
     context,
   }
 }))
-app.listen(port, host, () => console.log(`Node.js API server is listening on http://${host}:${port}/graphql`))
+app.listen(port, host, () => console.log(`Node.js API server is listening on http://127.0.0.1:${port}/graphql`))

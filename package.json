@@ -1,5 +1,5 @@
 {
-  "name": "node-graphql-frameworkless",
+  "name": "graphql-api-faked",
   "version": "1.0.0",
   "license": "ISC",
   "description": "Simplest drop-in Node.js graphql project template",

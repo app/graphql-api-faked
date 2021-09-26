@@ -5,11 +5,13 @@ import { graphqlHTTP } from 'express-graphql'
 import { mergeTypeDefs } from '@graphql-tools/merge'
 import { makeExecutableSchema } from '@graphql-tools/schema'
 import expressPlayground from 'graphql-playground-middleware-express'
-  // require('../../dist/index').default
 import auth from 'auth'
 
 const host = process.env.HOST || '0.0.0.0'
 const port = process.env.PORT || '3080'
+const protocol = process.env.NODE_ENV === 'development' ? "http" : "https"
+const endpoint = process.env.NODE_ENV === 'development' ?
+  `${protocol}://127.0.0.1:${port}/graphql` : `${protocol}://graphql-api-faked.vercel.app/graphql`
 
 const typeDefs = mergeTypeDefs([
   'scalar JSON',
@@ -35,10 +37,10 @@ app.get('/', (req, res) => res.send(`
     <h1>GraphQL faked API</h1>
     <div>&nbsp;</div>
     <p>
-      Try <a style="color:rgb(42, 126, 211)" href="/playground">${req.protocol}://${req.host}/playground</a> GUI applicaton!
+      Try <a style="color:rgb(42, 126, 211)" href="/playground">GraphQL Web playground</a> 
     </p>
     <p>
-      Use ${req.protocol}://${req.host}/graphql as graphql endpoint in your client API.
+      Use ${protocol}://${req.host}/graphql as graphql endpoint in your client API.
     </p>
   </body>
 
@@ -69,8 +71,6 @@ app.get('/user', (req, res) => res.send(`
   </p>
 `))
 
-const endpoint = process.env.NODE_ENV === 'development' ?
-  `http://127.0.0.1:${port}/graphql` : `https://graphql-api-faked.vercel.app/graphql`
 app.get(
   '/playground',
   expressPlayground.default({

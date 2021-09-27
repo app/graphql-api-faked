@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
-import ejwt from 'express-jwt'
+import jwt from 'jsonwebtoken'
+import cookie from 'cookie'
 import { graphqlHTTP } from 'express-graphql'
 import { mergeTypeDefs } from '@graphql-tools/merge'
 import { makeExecutableSchema } from '@graphql-tools/schema'
@@ -37,39 +38,13 @@ app.get('/', (req, res) => res.send(`
     <h1>GraphQL faked API</h1>
     <div>&nbsp;</div>
     <p>
-      Try <a style="color:rgb(42, 126, 211)" href="/playground">GraphQL Web playground</a> 
+      Try <a style="color:rgb(42, 126, 211)" href="/playground">GraphQL Web playground</a>
     </p>
     <p>
       Use ${protocol}://${req.host}/graphql as graphql endpoint in your client API.
     </p>
   </body>
-
 `));
-
-app.use(
-  ejwt(
-    {
-      secret:auth.secret,
-      algorithms: ['HS256']
-    }
-  )
-    .unless({path: ['/graphql','/playground']})
-)
-
-app.use(function (err, req, res, next) {
-  if (err.name === 'UnauthorizedError') {
-    res.status(401).send('Invalid  or missing token');
-  }
-  next()
-});
-
-app.get('/user', (req, res) => res.send(`
-  <h1>User's account</h1>
-  <div>&nbsp;</div>
-  <p>
-    ${req.user}
-  </p>
-`))
 
 app.get(
   '/playground',
@@ -79,10 +54,21 @@ app.get(
   }),
 )
 
-app.use('/graphql', graphqlHTTP( async (req) => {
+app.use('/graphql', graphqlHTTP( async (req,res) => {
   var token = req.header('Authorization')
-  token = token ? token.replace(/^.*\s+/, "") : token
-  const context = { req, token }
+  var user
+  if (token) {
+    token = token.replace(/^.*\s+/, "")
+    try {
+      user = jwt.verify(token,auth.secret)
+    } catch (error) {
+      console.log(`Unable to verify token: ${token}`);
+      throw new Error(`Wrong or missing token`)
+    }
+  }
+  const cookies = cookie.parse(req.headers.cookie || '');
+  const blacklist = cookies.blacklist ? JSON.parse(cookies.blacklist) : []
+  const context = { req, res, token, blacklist, user }
   return {
     schema: schema,
     graphiql: true,

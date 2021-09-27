@@ -1,1 +1,1 @@
-mutation{logout{email token error}}
+mutation{logout{email token}}

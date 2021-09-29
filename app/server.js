@@ -33,18 +33,7 @@ const corsOptions = {
 }
 app.use( cors(corsOptions),)
 
-app.get('/', (req, res) => res.send(`
-  <body style="color:rgb(42, 126, 211);background-color:#172a3a">
-    <h1>GraphQL faked API</h1>
-    <div>&nbsp;</div>
-    <p>
-      Try <a style="color:rgb(42, 126, 211)" href="/playground">GraphQL Web playground</a>
-    </p>
-    <p>
-      Use ${protocol}://${req.host}/graphql as graphql endpoint in your client API.
-    </p>
-  </body>
-`));
+app.get('/', (req, res) => res.redirect(`https://www.signapi.art`));
 
 app.get(
   '/playground',

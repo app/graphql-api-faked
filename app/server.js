@@ -36,7 +36,6 @@ app.get("/", (...[, res]) => res.redirect(`https://www.signapi.art`));
 app.get(
   "/playground",
   expressPlayground.default({
-    // endpoint: `http://127.0.0.1:${port}/graphql`,
     endpoint,
   })
 );

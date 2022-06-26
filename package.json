@@ -73,6 +73,7 @@
           "*.graphql",
           "*.gql"
         ],
+        "excludedFiles": "/node_modules/**/*.js",
         "parser": "@graphql-eslint/eslint-plugin",
         "plugins": [
           "@graphql-eslint"

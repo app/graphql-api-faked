@@ -31,7 +31,7 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-app.get("/", (req, res) => res.redirect(`https://www.signapi.art`));
+app.get("/", (...[, res]) => res.redirect(`https://www.signapi.art`));
 
 app.get(
   "/playground",

@@ -15,7 +15,6 @@ const endpoint = process.env.NODE_ENV === 'development' ?
   `${protocol}://127.0.0.1:${port}/graphql` : `${protocol}://signapi.art/graphql`
 
 const typeDefs = mergeTypeDefs([
-  'scalar JSON',
   auth.typeDefs,
 ]);
 

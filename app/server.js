@@ -64,8 +64,11 @@ app.use(
     };
   })
 );
-app.listen(port, host, () =>
+app.listen(port, host, () => {
   console.log(
     `Node.js API server is listening on http://127.0.0.1:${port}/graphql`
-  )
-);
+  );
+  console.log(
+    `You may want to look at Playground http://127.0.0.1:${port}/playground`
+  );
+});

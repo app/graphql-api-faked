@@ -43,7 +43,7 @@ app.get(
 app.use(
   "/graphql",
   graphqlHTTP(async (req, res) => {
-    var token = req.headers["Authorization"];
+    var token = req.headers["authorization"];
     var user;
     if (token) {
       token = token.replace(/^.*\s+/, "");

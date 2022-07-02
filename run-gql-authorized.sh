@@ -10,6 +10,6 @@ else
   echo Response
   curl -s -H "Content-Type: application/json; charset=utf-8" \
     -c cookies.txt -b cookies.txt \
-    -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQG1haWwucnUiLCJpYXQiOjE2MzI3NDEzNTEsImV4cCI6MTYzMjgyNzc1MX0.vFaD201K9lpkLBuFVuPCLTIEPOxLinTV2LgFnabp2Y0" \
+    -H "Authorization: Bearer $TOKEN" \
     -d "$QUERY" http://localhost:3080/graphql | jq
 fi

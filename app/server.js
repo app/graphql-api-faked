@@ -51,7 +51,6 @@ app.use(
         user = jwt.verify(token, auth.secret);
       } catch (error) {
         console.log(`Unable to verify token: ${token}`);
-        throw new Error(`Wrong or missing token`);
       }
     }
     const cookies = cookie.parse(req.headers.cookie || "");
